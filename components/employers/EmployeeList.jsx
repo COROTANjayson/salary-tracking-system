@@ -16,7 +16,8 @@ import PageviewIcon from '@mui/icons-material/Pageview';
 import { getEmployee } from "../../pages/api/employee";
 import { getEmployer } from "../../pages/api/employer";
 import { verifyToken } from "../../pages/api/jwt";
-
+import { setEmployerDrawerIndex } from "../../store/reducers/globalState";
+import { useDispatch, useSelector } from "react-redux";
 
 
 export default function EmployeeList() {
@@ -24,7 +25,7 @@ export default function EmployeeList() {
     const colors = tokens(theme.palette.mode);
     const router = useRouter()
     const [employer, setEmployer] = useState({})
-
+    const dispatch = useDispatch()
     useEffect(() => {
         const token = typeof window !== "undefined" ? JSON.parse(localStorage.getItem('token')) : undefined
         // console.log(data)
@@ -53,6 +54,8 @@ export default function EmployeeList() {
         if (token !== undefined) {
             fetchEmployer()
         }
+        dispatch(setEmployerDrawerIndex(`${router.asPath}`))
+
 
     }, [])
 

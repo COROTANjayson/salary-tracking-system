@@ -6,6 +6,8 @@ import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Header from "../Header";
 import { updateCompany, getCompany } from "../../pages/api/company";
+import { useDispatch, useSelector } from "react-redux";
+import { setAdminDrawerIndex } from "../../store/reducers/globalState";
 
 // import Header from "../../components/Header";
 
@@ -30,7 +32,7 @@ export default function UpdateCompanyForm() {
     const isNonMobile = useMediaQuery("(min-width:600px)");
     const [compExist, setCompExist] = useState(false)
     const [input, setInput] = useState(data)
-
+    const dispatch = useDispatch()
     const id = router.query.slug
     useEffect(() => {
         const fetchCompany = async () => {
@@ -49,6 +51,8 @@ export default function UpdateCompanyForm() {
         if (id) {
             fetchCompany()
         }
+        dispatch(setAdminDrawerIndex(`/admin/companies`))
+
     }, [id])
 
     const handleFormSubmit = async (values) => {

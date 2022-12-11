@@ -23,7 +23,8 @@ import { useRouter } from "next/router";
 import { getCompaniesAPI } from "../../pages/api/company";
 import { createEmployer } from "../../pages/api/employer";
 // import Box from '@mui/material/Box';
-
+import { setAdminDrawerIndex } from "../../store/reducers/globalState";
+import { useDispatch, useSelector } from "react-redux";
 
 
 export default function AddEmployerForm() {
@@ -33,6 +34,7 @@ export default function AddEmployerForm() {
     const [companies, setCompanies] = useState([])
     const [emailAvalilable, setEmailAvalilable] = useState(false);
     const isNonMobile = useMediaQuery("(min-width:600px)");
+    const dispatch = useDispatch()
 
     const errorElement = <Box sx={{textAlign: 'center', color: 'red'}}>Email already exist!</Box>
 
@@ -50,6 +52,8 @@ export default function AddEmployerForm() {
             }
         }
         fetchCompanies()
+        dispatch(setAdminDrawerIndex(`${router.asPath}`))
+
     }, [])
     console.log()
     const handleFormSubmit = async (values) => {

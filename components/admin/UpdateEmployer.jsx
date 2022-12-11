@@ -23,12 +23,14 @@ import { useRouter } from "next/router";
 import { getCompaniesAPI } from "../../pages/api/company";
 import { updateEmployer, getEmployer } from "../../pages/api/employer";
 import {updateProfile} from '../../pages/api/profile'
-
+import { useDispatch, useSelector } from "react-redux";
+import { setAdminDrawerIndex } from "../../store/reducers/globalState";
 
 export default function UpdateEmployerForm() {
     const theme = useTheme();
     const router = useRouter()
     const id = router.query.slug
+    const dispatch = useDispatch()
 
     const colors = tokens(theme.palette.mode);
     const [employer, setEmployer] = useState({
@@ -80,6 +82,8 @@ export default function UpdateEmployerForm() {
 
         fetchEmployer()
         fetchCompanies()
+        dispatch(setAdminDrawerIndex(`/admin/employers`))
+
     }, [id])
     const handleFormSubmit = async (values) => {
         console.log(values);

@@ -25,12 +25,14 @@ import { getCompaniesAPI } from "../../pages/api/company";
 import { updateEmployee, getEmployee } from "../../pages/api/employee";
 
 import {updateProfile} from '../../pages/api/profile'
-
+import { setEmployerDrawerIndex } from "../../store/reducers/globalState";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function UpdateEmployeeForm() {
     const theme = useTheme();
     const router = useRouter()
     const id = router.query.slug
+    const dispatch = useDispatch()
 
     const colors = tokens(theme.palette.mode);
     const [employee, setEmployee] = useState({
@@ -41,7 +43,7 @@ export default function UpdateEmployeeForm() {
         email: '',
         password: '',
         employeeType: '',
-        position: '',
+        employeePosition: '',
         salaryPerHR: 0,
 
 
@@ -70,19 +72,13 @@ export default function UpdateEmployeeForm() {
         }
      
         fetchEmployee()
+        dispatch(setEmployerDrawerIndex(`/employee`))
+
        
     }, [id])
     const handleFormSubmit = async (values) => {
-        // console.log(values);
-
-        // const employeeData = {
-        //     firstName: values.firstName,
-        //     lastName: values.lastName,
-        //     email: values.email,
-        //     password: values.password,
-        //     role: 'employee',
-        //     companyId: values.companyId,
-        // }
+       
+       
         const employeeData = {
             employeeType:  values.employeeType,
             // companyId: employee.companyId,

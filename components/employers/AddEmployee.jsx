@@ -23,12 +23,15 @@ import { useRouter } from "next/router";
 import { getCompaniesAPI } from "../../pages/api/company";
 import { createEmployee } from "../../pages/api/employee";
 import { getEmployer } from "../../pages/api/employer";
+import { setEmployerDrawerIndex } from "../../store/reducers/globalState";
+import { useDispatch, useSelector } from "react-redux";
 
 import { verifyToken } from "../../pages/api/jwt";
 
 // import Box from '@mui/material/Box';
 
 export default function AddEmployeeForm() {
+    const dispatch = useDispatch()
 
     const [employer, setEmployer] = useState({})
 
@@ -55,6 +58,8 @@ export default function AddEmployeeForm() {
             }
         }
         fetchAccount()
+        dispatch(setEmployerDrawerIndex(`/employee`))
+
     }, [])
     return (
         <Box >

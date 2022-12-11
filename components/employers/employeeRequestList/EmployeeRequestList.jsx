@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import { tokens } from "../../../config/theme";
 import { mockDataTeam } from "../../mockData";
+import { useDispatch, useSelector } from 'react-redux';
 
 // import Header from "../../components/Header";
 
@@ -13,6 +14,8 @@ import {
 import Header from "../../Header";
 import LeaveRequestDataGrid from "./LeaveDataGrid";
 import OvertimeRequestDataGrid from "./OvertimeDataGrid";
+import { setEmployerDrawerIndex } from "../../../store/reducers/globalState";
+import { useRouter } from "next/router";
 
 // import Box from '@mui/material/Box';
 
@@ -22,7 +25,13 @@ export default function EmployeeRequestList() {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
     const [button, setButton] = useState('leave')
-    
+    const dispatch = useDispatch()
+    const router = useRouter()
+    useEffect(() => {
+      
+        dispatch(setEmployerDrawerIndex(`${router.asPath}`))
+
+    }, [])
     return (
         <div>
             <Container>

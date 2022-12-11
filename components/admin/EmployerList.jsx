@@ -14,13 +14,15 @@ import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import {map} from 'lodash'
 import PageviewIcon from '@mui/icons-material/Pageview';
 import { getEmployers } from "../../pages/api/employer";
+import { useDispatch } from "react-redux";
+import { setAdminDrawerIndex } from "../../store/reducers/globalState";
 
 export default function EmployerList() {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
     const router = useRouter()
     const [employers, setEmployers] = useState([])
-    
+    const dispatch = useDispatch()
     useEffect(() => {
         const fetchEmployers = async () => {
             try {
@@ -35,6 +37,8 @@ export default function EmployerList() {
             }
         }
         fetchEmployers()
+        dispatch(setAdminDrawerIndex(`${router.asPath}`))
+
     }, [])
 
     const columns = [

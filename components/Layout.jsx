@@ -78,7 +78,7 @@ export default function SideDrawer({ window, children }) {
         }
 
     }, [])
-    let DrawerElement = <AdminDrawer />
+    let DrawerElement = <></>
     if (account.role === 'admin') {
         DrawerElement= <AdminDrawer />
     }

@@ -13,6 +13,8 @@ import {
     Box, Typography, useTheme, Container, Button, TextField
 } from '@mui/material';
 import { useRouter } from "next/router";
+import { setAdminDrawerIndex } from "../../store/reducers/globalState";
+import { useDispatch, useSelector } from "react-redux";
 
 // import Box from '@mui/material/Box';
 
@@ -22,8 +24,14 @@ export default function AddCompanyForm() {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
     const router = useRouter()
+    const dispatch = useDispatch()
+    
     const isNonMobile = useMediaQuery("(min-width:600px)");
     const [compExist, setCompExist] = useState(false)
+    
+    useEffect(()=>{
+        dispatch(setAdminDrawerIndex(`${router.asPath}`))
+    }, [])
 
     const handleFormSubmit = async (values) => {
         // console.log(values);

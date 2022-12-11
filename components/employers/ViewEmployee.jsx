@@ -17,17 +17,16 @@ import { useRouter } from "next/router";
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import {
     getEmployee,
-    getLeavesRemaining,
-    getTotalAbsences,
-    getTotalOvertime,
-    getDailyWage,
-    getMonthlySalary
+    
 } from "../../pages/api/employee";
 import { textAlign } from "@mui/system";
 import Details from "./components/Details";
+import { setEmployerDrawerIndex } from "../../store/reducers/globalState";
 
 
 export default function ViewEmployee() {
+    const dispatch = useDispatch()
+
     const counter = useSelector(state => state.global.counter)
     const router = useRouter()
     const id = router.query.slug
@@ -67,9 +66,12 @@ export default function ViewEmployee() {
             }
 
         }
+        
         fetchEmployer()
+        dispatch(setEmployerDrawerIndex(`/employee`))
+
     }, [id, counter])
-console.log(employee)
+
     const updateCompany = () => {
         router.push(`/employee/form/${employee.id}`)
     }

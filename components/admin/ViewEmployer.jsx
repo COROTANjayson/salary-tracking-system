@@ -14,10 +14,13 @@ import Box from '@mui/material/Box';
 import { useRouter } from "next/router";
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import { getEmployer } from "../../pages/api/employer";
+import { useDispatch, useSelector } from "react-redux";
+import { setAdminDrawerIndex } from "../../store/reducers/globalState";
 
 
 export default function ViewEmployer() {
     const router = useRouter()
+    const dispatch = useDispatch()
     const id = router.query.slug
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
@@ -55,6 +58,7 @@ export default function ViewEmployer() {
 
         }
         fetchEmployer()
+        dispatch(setAdminDrawerIndex(`/admin/employers`))
 
 
     }, [id])
@@ -112,7 +116,7 @@ export default function ViewEmployer() {
                                     fontWeight="bold"
                                     sx={{ m: "0 0 5px 15px" }}
                                 >
-                                    {`${employee.firstName} ${employee.lastName}`} 
+                                    {`${employee.firstName} ${employee.lastName}`}
                                 </Typography>
                                 <Typography
                                     variant="h5"

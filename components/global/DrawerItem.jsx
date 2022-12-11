@@ -28,15 +28,15 @@ import Container from '@mui/material/Container';
 // import SideBa
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
-import { setSelectedIndex } from "../../store/reducers/globalState";
+import { setEmployerDrawerIndex, setAdminDrawerIndex } from "../../store/reducers/globalState";
 
-const Item = ({ title, icon, eventIndex, link, selected, setSelected }) => {
+const Item = ({ title, icon, eventIndex, link, selected, setDrawerIndex }) => {
     const router = useRouter()
     const dispatch = useDispatch()
     const handleListItemClick = (event, index) => {
         router.push(link)
 
-        dispatch(setSelected(index))
+        dispatch(setDrawerIndex(link))
 
     };
     return (
@@ -59,11 +59,18 @@ const Item = ({ title, icon, eventIndex, link, selected, setSelected }) => {
 }
 
 export const AdminDrawer = ({ window, children }) => {
+    
     const router = useRouter()
+    // console.log(router.asPath)
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
-    const selectedIndex = useSelector(state => state.global.selectedIndex)
-
+    const adminDrawerIndex = useSelector(state => state.global.adminDrawerIndex)
+    // console.log(adminDrawerIndex)
+    
+    useEffect(()=>{
+        setAdminDrawerIndex(`${router.asPath}`)
+    }, [router.asPath])
+    
     return (
         <>
             <Box sx={{ p:'10px', width: 1, display: 'flex', justifyContent: 'center' }}>
@@ -77,8 +84,8 @@ export const AdminDrawer = ({ window, children }) => {
                 icon={<MailIcon />}
                 link="/dashboard"
                 eventIndex={0}
-                selected={selectedIndex}
-                setSelected={setSelectedIndex}
+                selected={adminDrawerIndex}
+                setDrawerIndex={setAdminDrawerIndex}
             />
             <Divider />
             <Item
@@ -86,24 +93,24 @@ export const AdminDrawer = ({ window, children }) => {
                 icon={<MailIcon />}
                 link="/admin/companies"
                 eventIndex={1}
-                selected={selectedIndex}
-                setSelected={setSelectedIndex}
+                selected={adminDrawerIndex}
+                setDrawerIndex={setAdminDrawerIndex}
             />
             <Item
                 title="Employers"
                 icon={''}
                 link="/admin/employers"
                 eventIndex={2}
-                selected={selectedIndex}
-                setSelected={setSelectedIndex}
+                selected={adminDrawerIndex}
+                setDrawerIndex={setAdminDrawerIndex}
             />
             <Item
                 title="Users"
                 icon={<MailIcon />}
                 link="/admin/users"
                 eventIndex={3}
-                selected={selectedIndex}
-                setSelected={setSelectedIndex}
+                selected={adminDrawerIndex}
+                setDrawerIndex={setAdminDrawerIndex}
             />
             <Divider />
             <Item
@@ -111,16 +118,16 @@ export const AdminDrawer = ({ window, children }) => {
                 icon={<MailIcon />}
                 link="/employer/form"
                 eventIndex={4}
-                selected={selectedIndex}
-                setSelected={setSelectedIndex}
+                selected={adminDrawerIndex}
+                setDrawerIndex={setAdminDrawerIndex}
             />
             <Item
                 title="Add Company"
                 icon={<MailIcon />}
                 link="/company/form"
                 eventIndex={5}
-                selected={selectedIndex}
-                setSelected={setSelectedIndex}
+                selected={adminDrawerIndex}
+                setDrawerIndex={setAdminDrawerIndex}
             />
         </>
     )
@@ -130,7 +137,7 @@ export const EmployerDrawer = ({ window, children }) => {
     const router = useRouter()
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
-    const selectedIndex = useSelector(state => state.global.selectedIndex)
+    const selectedIndex = useSelector(state => state.global.employernDrawerIndex)
 
     return (
         <>
@@ -145,7 +152,7 @@ export const EmployerDrawer = ({ window, children }) => {
                 link="/dashboard"
                 eventIndex={0}
                 selected={selectedIndex}
-                setSelected={setSelectedIndex}
+                setDrawerIndex={setEmployerDrawerIndex}
             />
             <Divider />
             <Item
@@ -154,15 +161,15 @@ export const EmployerDrawer = ({ window, children }) => {
                 link="/employee"
                 eventIndex={1}
                 selected={selectedIndex}
-                setSelected={setSelectedIndex}
+                setDrawerIndex={setEmployerDrawerIndex}
             />
             <Item
                 title="Requests"
                 icon={<MailIcon />}
                 link="/employee/request"
-                eventIndex={5}
+                eventIndex={2}
                 selected={selectedIndex}
-                setSelected={setSelectedIndex}
+                setDrawerIndex={setEmployerDrawerIndex}
             />
         </>
     )

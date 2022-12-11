@@ -6,24 +6,24 @@ import { tokens } from "../../config/theme";
 import { mockDataContacts } from "../mockData";
 
 // import Header from "../../components/Header";
-import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettingsOutlined";
-import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
-import SecurityOutlinedIcon from "@mui/icons-material/SecurityOutlined";
+
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import PageviewIcon from '@mui/icons-material/Pageview';
 import {
-    Box, Typography, useTheme, Container, Button
+    Box,  useTheme, Button
 } from '@mui/material';
 import Header from "../Header";
 import { useRouter } from "next/router";
 import { getCompaniesAPI } from "../../pages/api/company";
+import { setAdminDrawerIndex } from "../../store/reducers/globalState";
+import { useDispatch, useSelector } from "react-redux";
 
 
 export default function CompanyList() {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
     const router = useRouter()
-
+    const dispatch = useDispatch()
     const [companies, setCompanies] = useState([])
     useEffect(() => {
         const fetchCompanies = async () => {
@@ -40,6 +40,9 @@ export default function CompanyList() {
         }
         // console.log('counter',counter)
         fetchCompanies()
+
+        // import { useDispatch, useSelector } from "react-redux";
+        dispatch(setAdminDrawerIndex(`${router.asPath}`))
     }, [])
 
     const columns = [
@@ -110,11 +113,19 @@ export default function CompanyList() {
                         title="Company"
                         subtitle="List of companies"
                     />
-                    <Link href='/company' style={{ textDecoration: "none" }}>
-                        <Button variant="contained" color="secondary" startIcon={<AddCircleIcon />}>
-                            Add Company
-                        </Button>
-                    </Link>
+
+                    <Button
+                        variant="contained"
+                        color="secondary"
+                        startIcon={<AddCircleIcon />}
+                        onClick={() => {
+                            router.push('/company/form')
+                            // setAdminDrawerIndex('/company/form')
+                        }}
+                    >
+                        Add Company
+                    </Button>
+
                 </Box>
 
 

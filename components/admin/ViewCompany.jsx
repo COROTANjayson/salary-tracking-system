@@ -2,8 +2,6 @@
 import React, { useEffect, useState } from "react";
 import Link from 'next/link'
 import {
-    useMediaQuery,
-    Container,
     Typography,
     Button,
     useTheme
@@ -14,6 +12,9 @@ import Box from '@mui/material/Box';
 import { useRouter } from "next/router";
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import { getCompany } from "../../pages/api/company";
+import { useDispatch } from "react-redux";
+import { setAdminDrawerIndex } from "../../store/reducers/globalState";
+
 const data = {
     name: '',
     address: '',
@@ -27,7 +28,7 @@ export default function ViewCompany() {
     const colors = tokens(theme.palette.mode);
     const [isError, setIsError] = useState(false);
     const [companyData, setCompData] = useState({ data })
-
+    const dispatch = useDispatch()
     const id = router.query.slug
 
     const handleSubmit = async (event) => {
@@ -51,6 +52,8 @@ export default function ViewCompany() {
         if (id) {
             fetchCompany()
         }
+        dispatch(setAdminDrawerIndex(`/admin/companies`))
+
     }, [id])
     
     const updateCompany = () => {
