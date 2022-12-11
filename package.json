@@ -9,10 +9,34 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emotion/cache": "^11.10.5",
+    "@emotion/react": "^11.10.5",
+    "@emotion/server": "^11.10.0",
+    "@emotion/styled": "^11.10.5",
+    "@mui/icons-material": "^5.10.16",
+    "@mui/material": "^5.10.16",
+    "@mui/x-data-grid": "^5.17.14",
+    "@mui/x-date-pickers": "^5.0.9",
+    "@nivo/bar": "^0.80.0",
+    "@nivo/geo": "^0.80.0",
+    "@nivo/line": "^0.80.0",
+    "@nivo/pie": "^0.80.0",
+    "@reduxjs/toolkit": "^1.9.1",
+    "axios": "^1.2.0",
+    "date-fns": "^2.29.3",
+    "dayjs": "^1.11.7",
+    "dotenv": "^16.0.3",
     "eslint": "8.29.0",
     "eslint-config-next": "13.0.6",
+    "formik": "^2.2.9",
+    "jose": "^4.11.1",
+    "lodash": "^4.17.21",
+    "moment": "^2.29.4",
     "next": "13.0.6",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "react-pro-sidebar": "^0.7.1",
+    "react-redux": "^8.0.5",
+    "yup": "^0.32.11"
   }
 }
